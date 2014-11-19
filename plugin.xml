@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.metova.cordova.manhandle" version="0.0.1">
+
+  <name>Manhandle Cordova Plugin</name>
+  <description>A plugin to help Cordova Plugman handle versioned dependencies.</description>
+  <license>MIT</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+  </engines>
+
+  <hook type="before_build" src="hooks/before_build.js" />
+  <hook type="after_plugin_add" src="hooks/after_plugin_change.js" />
+  <hook type="after_plugin_rm" src="hooks/after_plugin_change.js" />
+
+</plugin>
