@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var exec = require('child_process').exec;
+var exec = require('exec-sync');
 var fs = require('fs');
 var path = require('path');
 var sys = require('sys');
@@ -11,7 +11,7 @@ function puts(error, stdout, stderr) {
 
 plugins = JSON.parse(fs.readFileSync(path.join('plugins.json'), 'utf-8'));
 plugins.forEach(function(plugin){
-    if( !fs.existsSync(path.join('plugins', plugin.id))) {
+    if(!fs.existsSync(path.join('plugins', plugin.id))) {
         if(plugin.source.type == 'registry') {
             exec('cordova plugin add ' + plugin.id + '@' + plugin.version, puts);
         }
