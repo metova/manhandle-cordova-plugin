@@ -9,10 +9,12 @@ exec("cordova plugin list", function(error, output, code) {
 
     var plugins = [];
     var lines = output.split("\n");
+    var count = 0;
     lines.forEach(function(line){
         if(line.length < 2) {
             return;
         }
+        count++;
 
         line = line.replace(' ', '@').replace(new RegExp(' .*'), '')
         plugin = line.substring(0, line.indexOf('@'));
@@ -21,6 +23,11 @@ exec("cordova plugin list", function(error, output, code) {
         plugins.push({ id: plugin, version: version, source: fetch['source'] });
     });
 
-    console.log('Writing plugin manifest to plugins.json');
-    fs.writeFileSync('plugins.json', JSON.stringify(plugins), 'utf8');
+    if(count>1) {
+        console.log('Writing plugin manifest to plugins.json');
+        fs.writeFileSync('plugins.json', JSON.stringify(plugins, null, 2), 'utf8');
+    }
+    else {
+        console.log('Not overwriting the plugin manifest. Only one plugin was detected, which probably means only manhandle-cordova-plugin is installed.');
+    }
 });

@@ -12,6 +12,7 @@ function puts(error, stdout, stderr) {
 plugins = JSON.parse(fs.readFileSync(path.join('plugins.json'), 'utf-8'));
 plugins.forEach(function(plugin){
     if(!fs.existsSync(path.join('plugins', plugin.id))) {
+        console.log('Installing ' + plugin.id + '@' + plugin.version);
         if(plugin.source.type == 'registry') {
             exec('cordova plugin add ' + plugin.id + '@' + plugin.version, puts);
         }
