@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var exec = require('exec-sync');
+var exec = require('child_process').exec;
 var fs = require('fs');
 var path = require('path');
 
@@ -18,7 +18,6 @@ exec("cordova plugin list", function(error, output, code) {
         plugin = line.substring(0, line.indexOf('@'));
         version = line.substring(line.indexOf('@') + 1);
         fetch = JSON.parse(fs.readFileSync(path.join('plugins', plugin, '.fetch.json'), 'utf-8'));
-
         plugins.push({ id: plugin, version: version, source: fetch['source'] });
     });
 
